@@ -51,6 +51,21 @@ class PeopleController {
             res.status(500).json(error.message);
         }
     }
+
+    static async takeAregistration (req, res) {
+        const { studentId, enrollmentId } = req.params;
+        try {
+            const oneRegistration = await database.Enrollment.findOne({
+                where: { 
+                    id: Number(enrollmentId),
+                    student_id: Number(studentId)
+                }
+            });
+            return res.status(200).json(oneRegistration)
+        }catch(error) {
+            res.status(500).json(error.message)
+        }
+    }
 }
 
 module.exports = PeopleController;
